@@ -1,10 +1,6 @@
-import cv2
-import os
-import sys
+import cv2,os
 import numpy as np
 from PIL import Image
-import imutils
-import argparse
 
 cascadePath = "../data/haarcascades/haarcascade_profileface.xml"
 faceCascade = cv2.CascadeClassifier(cascadePath)
@@ -15,17 +11,25 @@ def get_images_and_labels():
     labels=[]
     image_paths = [os.path.join('../data/face-data',f) for f in os.listdir('../data/face-data')]
     for image_path in image_paths:
+        print(image_path)
         image_pil=Image.open(image_path).convert('L')
         image = np.array(image_pil,'uint8')
         images.append(image)
-        labels.append(int('1'))
+        nbr = int(os.path.split(image_path)[1].split('.')[0])
+        labels.append(nbr)
         cv2.imshow('add face',image)
-        cv2.waitKey(50)
+        cv2.waitKey(1)
     return images,labels
 
 if __name__ == '__main__':
     images,labels = get_images_and_labels()
-    a=recognizer.train(images,np.array(labels))
-    print(a)
+    recognizer.train(images,np.array(labels))
+    recognizer.save('model.yaml')
+    #image_paths = [os.path.join('../data/face-data', f) for f in os.listdir('../data/face-data')]
+    #for image_path in image_paths:
+      #  predict_image_pil = Image.open(image_path).convert('L')
+     #   predict_image = np.array(predict_image_pil,'uint8')
+      #  a,b = recognizer.predict(predict_image)
+     #   print(a,b)
 
 

@@ -21,7 +21,7 @@ if __name__ == '__main__':
             roi_color = img[y:y + h, x:x + w]
             face_count += 1
             face_name = './data/face-data/' + 'wanglei' + str(face_count) + '.jpg'
-            cv2.imwrite(face_name, roi_color)
+            #cv2.imwrite(face_name, roi_color)
         cv2.imshow("frame", img)
         key = cv2.waitKey(5) & 0xff
         if key == ord("q"):
