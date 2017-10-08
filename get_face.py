@@ -20,10 +20,13 @@ if __name__ == '__main__':
             roi_color = img[y:y + h, x:x + w]
             face_count += 1
             face_name = './data/face-data/' + 'wanglei' + str(face_count) + '.jpg'
-            #cv2.imwrite(face_name, roi_color)
+            roi_color=cv2.resize(roi_color,(200,200))
+            cv2.imwrite(face_name, roi_color)
         cv2.imshow("frame", img)
         key = cv2.waitKey(5) & 0xff
         if key == ord("q"):
+            break
+        if face_count>=100:
             break
     camera.release()
     cv2.destroyAllWindows()
