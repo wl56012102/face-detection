@@ -1,4 +1,6 @@
 import cv2
+import os
+
 
 def get_face(img):
     face_cascade = cv2.CascadeClassifier('./data/haarcascades/haarcascade_frontalface_default.xml')
@@ -13,6 +15,10 @@ if __name__ == '__main__':
     face_count = 0
     face_id=input('input face id:')
     face_name=input('input face name:')
+    image_paths = [os.path.join('./data/face-data', f) for f in os.listdir('./data/face-data')]
+    for image_path in image_paths:
+        if(os.path.split(image_path)[1].split('.')[0]==face_id):
+            os.remove(image_path)
     while True:
         ret, img = camera.read()
         faces = get_face(img)
