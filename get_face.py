@@ -11,18 +11,19 @@ if __name__ == '__main__':
     face_cascade = cv2.CascadeClassifier('./data/haarcascades/haarcascade_frontalface_default.xml')
     camera = cv2.VideoCapture(0)
     face_count = 0
-    file_name=input('input object name:')
+    face_id=input('input face id:')
+    face_name=input('input face name:')
     while True:
         ret, img = camera.read()
         faces = get_face(img)
-        print(faces)
         for (x, y, w, h) in faces:
             cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             roi_color = img[y:y + h, x:x + w]
             face_count += 1
-            face_name = './data/face-data/' + file_name +"."+str(face_count) + '.jpg'
+            file_name = './data/face-data/' + face_id+"."+face_name +"."+str(face_count) + '.jpg'
             roi_color=cv2.resize(roi_color,(200,200))
-            cv2.imwrite(face_name, roi_color)
+            cv2.imwrite(file_name, roi_color)
+        cv2.putText(img,str(face_count),(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
         cv2.imshow("frame", img)
         key = cv2.waitKey(5) & 0xff
         if key == ord("q"):

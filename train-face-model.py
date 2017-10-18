@@ -2,21 +2,21 @@ import cv2,os
 import numpy as np
 from PIL import Image
 
-cascadePath = "../data/haarcascades/haarcascade_profileface.xml"
+cascadePath = "./data/haarcascades/haarcascade_profileface.xml"
 faceCascade = cv2.CascadeClassifier(cascadePath)
 recognizer = cv2.face.createLBPHFaceRecognizer()
 
 def get_images_and_labels():
     images=[]
     labels=[]
-    image_paths = [os.path.join('../data/face-data',f) for f in os.listdir('../data/face-data')]
+    image_paths = [os.path.join('./data/face-data',f) for f in os.listdir('./data/face-data')]
     for image_path in image_paths:
         image_pil=Image.open(image_path).convert('L')
         image = np.array(image_pil,'uint8')
         images.append(image)
-        labels.append(int('1'))
+        labels.append(int(os.path.split(image_path)[1].split('.')[0]))
         cv2.imshow('add face',image)
-        cv2.waitKey(50)
+        cv2.waitKey(5)
     return images,labels
 
 if __name__ == '__main__':
