@@ -34,7 +34,7 @@ if __name__ == '__main__':
         key = cv2.waitKey(5) & 0xff
         if key == ord("q"):
             break
-        if face_count>=100:
+        if face_count>=200:
             break
     camera.release()
     cv2.destroyAllWindows()
